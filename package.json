@@ -1,0 +1,13 @@
+{
+  "name": "quiz-enhancer",
+  "version": "0.0.1",
+  "description": "A comprehensive enhancer for LumiNUS Quiz",
+  "main": "src/index.ts",
+  "author": "salty-flower",
+  "license": "GPLv3",
+  "packageManager": "yarn@3.1.1",
+  "scripts": {},
+  "dependencies": {
+    "typescript": "next"
+  }
+}
