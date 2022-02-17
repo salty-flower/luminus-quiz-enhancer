@@ -5,11 +5,24 @@ import { qnData } from './types/qnDataType';
 
 // @ts-ignore
 function main(inputJSON: polyfillData) {
-    const questionBoxes = document.getElementsByTagName('quiz-question-view');
+    const rawQuestionBoxes = document.getElementsByTagName('quiz-question-view');
+    const questionBoxes: qnBox[] = Array.prototype.slice
+        .call(rawQuestionBoxes)
+        .map((item: qnBox): qnBox => {
+            return (
+                item
+                    .getElementsByClassName('question-header')[0]
+                    .getElementsByTagName('katex')[0] ??
+                item
+                    .getElementsByClassName('question-type')[0]
+                    .getElementsByTagName('question-view-fib')[0]
+                    .getElementsByTagName('katex')[0]
+            ).getElementsByTagName('span')[0];
+        });
     console.log(extract(questionBoxes, inputJSON));
 }
 
-function extract(questionBoxes: HTMLCollectionOf<Element>, networkJSON: polyfillData): pair[] {
+function extract(questionBoxes: qnBox[], networkJSON: polyfillData): pair[] {
     const result: pair[] = [];
     const { data } = networkJSON;
 
@@ -21,7 +34,10 @@ function extract(questionBoxes: HTMLCollectionOf<Element>, networkJSON: polyfill
     for (const questionBox of questionBoxes) {
         result.push({
             qnNode: questionBox as qnBox,
-            qnData: strictMatch(questionBox, data) ?? looseMatch(questionBox, data)
+            qnData:
+                strictMatch(questionBox, data) ??
+                looseMatch(questionBox, data) ??
+                crazyMatch(questionBox, data)
         });
     }
 
@@ -41,12 +57,37 @@ function looseMatch(questionBox: qnBox, questionDataEntries: qnData[]): qnData |
     for (const questionDataEntry of questionDataEntries) {
         const tmpElement: Element = document.createElement('div');
         tmpElement.innerHTML = questionDataEntry.text;
-        const { textContent } = tmpElement;
 
-        if (textContent == questionBox.textContent) {
+        if (tmpElement.textContent == questionBox.textContent) {
             return questionDataEntry;
         }
     }
+    return undefined;
+}
+
+function crazyMatch(questionBox: qnBox, questionDataEntries: qnData[]): qnData | undefined {
+    for (const questionDataEntry of questionDataEntries) {
+        const tmpElement: Element = document.createElement('div');
+        tmpElement.innerHTML = questionDataEntry.text;
+
+        if (!(tmpElement.textContent && questionBox.textContent)) {
+            return undefined;
+        } else {
+            const half = (tmpElement.textContent.length / 2) | 0;
+            const full = tmpElement.textContent.length;
+            if (
+                tmpElement.textContent.substring(0, half) ==
+                    questionBox.textContent.substring(0, half) ||
+                tmpElement.textContent.substring(half, full) ==
+                    questionBox.textContent.substring(half, full)
+            ) {
+                return questionDataEntry;
+            }
+        }
+    }
+    console.log('Warning: one question data not found\n==============');
+    console.log(questionBox);
+    console.log('==============');
     return undefined;
 }
 

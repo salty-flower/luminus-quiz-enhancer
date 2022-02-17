@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["tsc", "npm:2.0.4"],
             ["typescript", "patch:typescript@npm%3A4.7.0-dev.20220217#~builtin<compat/typescript>::version=4.7.0-dev.20220217&hash=493e53"]
           ],
           "linkType": "SOFT",
@@ -45,9 +46,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["quiz-enhancer", "workspace:."],
+            ["tsc", "npm:2.0.4"],
             ["typescript", "patch:typescript@npm%3A4.7.0-dev.20220217#~builtin<compat/typescript>::version=4.7.0-dev.20220217&hash=493e53"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["tsc", [
+        ["npm:2.0.4", {
+          "packageLocation": "./.yarn/cache/tsc-npm-2.0.4-e331b066cb-50b1024088.zip/node_modules/tsc/",
+          "packageDependencies": [
+            ["tsc", "npm:2.0.4"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["typescript", [

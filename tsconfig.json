@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es2016",
+    "outDir": "./dist",
+    "module": "ES2022",
+    "target": "es2015",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es6",
-      "es2015",
-      "es2017"
+      "DOM",
+      "ES2021"
     ],
-    "sourceMap": true,
-    "allowJs": true,
+    "sourceMap": false,
+    "allowJs": false,
     "jsx": "preserve",
     "strict": true,
     "useUnknownInCatchVariables": false,
-    "moduleResolution": "classic",
+    "moduleResolution": "node12",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -30,10 +26,6 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "noEmit": true,
     "noFallthroughCasesInSwitch": true
-  },
-  "include": [
-    "src"
-  ]
+  }
 }
