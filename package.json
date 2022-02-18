@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-project",
-  "version": "1.0.0",
-  "description": "My webpack project",
+  "name": "luminus-quiz-enhancer",
+  "version": "0.1.0",
+  "description": "A loader for your previous quiz response",
   "private": true,
   "author": "salty-flower",
   "license": "GPLv3",
