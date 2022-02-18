@@ -1,7 +1,7 @@
 import { hasText, htmlString } from './types/componentType';
 import { pair, qnBox } from './types/otherTypes';
 import { polyfillData } from './types/polyfillDataType';
-import { qnData, qnDataMRQ } from './types/qnDataType';
+import { qnData, qnDataFIB, qnDataMRQ } from './types/qnDataType';
 
 // @ts-ignore
 function main(inputJSON: polyfillData) {
@@ -49,14 +49,13 @@ function extract(rawQuestionBoxes: HTMLCollectionOf<Element>, networkJSON: polyf
     );
 }
 
-// @ts-ignore
 function fill(p: pair) {
     switch (p.qnData?.type) {
         case 'FIB':
-            fillFIB(p);
+            fillFIB(p as pair<qnDataFIB>);
             break;
         case 'MCQ':
-            fillMCQ(p);
+            fillMRQ(p as pair<qnDataMRQ>);
             break;
         case 'MRQ':
             fillMRQ(p as pair<qnDataMRQ>);
@@ -67,9 +66,9 @@ function fill(p: pair) {
     }
     return;
 }
-// @ts-ignore
+
 function fillTOF(p: pair) {}
-// @ts-ignore
+
 function fillMRQ(p: pair<qnDataMRQ>) {
     interface pairedOption {
         checkbox: HTMLInputElement | null;
@@ -103,8 +102,19 @@ function fillMRQ(p: pair<qnDataMRQ>) {
     }
 }
 
-function fillMCQ(p: pair) {}
-function fillFIB(p: pair) {}
+function fillFIB(p: pair<qnDataFIB>) {
+    const blanks: NodeListOf<HTMLInputElement> = p.qnNode.querySelectorAll(
+        '.question-view > quiz-question-view:nth-child(2) > div:nth-child(2) > question-view-fib:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div.input > input'
+    );
+    // const blanksArray = Array.prototype.slice.call(blanks);
+    for (let i = 0; i < blanks.length; i++) {
+        blanks[i].value = p.qnData?.response.lstAnswer[i]!;
+        const evt = new InputEvent('input', {
+            bubbles: true
+        });
+        blanks[i].dispatchEvent(evt);
+    }
+}
 
 function match<T extends hasText = qnData>(
     questionBox: qnBox,

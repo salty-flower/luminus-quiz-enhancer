@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "module": "commonjs",
+    "module": "es2015",
     "target": "es2015",
     "lib": [
       "DOM",
@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "strict": true,
     "useUnknownInCatchVariables": false,
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -28,7 +28,10 @@
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
   },
-  // "exclude": [
-  //   "webpack.config.ts"
-  // ]
+  "exclude": [
+    "node_modules",
+    ".yarn",
+    "webpack.config.ts",
+    "dist",
+  ]
 }
