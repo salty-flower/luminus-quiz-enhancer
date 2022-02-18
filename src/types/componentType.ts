@@ -35,3 +35,7 @@ export interface option {
     order: number;
     text: htmlString;
 }
+
+export interface hasText {
+    text: htmlString;
+}

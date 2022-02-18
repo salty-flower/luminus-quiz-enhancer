@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "module": "ES2022",
+    "module": "commonjs",
     "target": "es2015",
     "lib": [
       "DOM",
@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "strict": true,
     "useUnknownInCatchVariables": false,
-    "moduleResolution": "node12",
+    "moduleResolution": "classic",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -23,9 +23,12 @@
     "skipLibCheck": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "noFallthroughCasesInSwitch": true
-  }
+    "noFallthroughCasesInSwitch": true,
+  },
+  // "exclude": [
+  //   "webpack.config.ts"
+  // ]
 }

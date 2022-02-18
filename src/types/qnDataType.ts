@@ -11,6 +11,7 @@ import {
 } from './componentType';
 
 interface qnDataCore {
+    type: 'FIB' | 'MCQ' | 'TOF' | 'MRQ';
     id: UUID;
     resourceID: UUID;
     parentID: UUID;
@@ -32,16 +33,22 @@ export interface qnDataFIB extends qnDataCore {
 }
 
 export interface qnDataMCQ extends qnDataCore {
+    type: 'MCQ';
     recommendMarkingScheme: number;
     sortedOptions: option[];
     response: responseMCQ;
 }
 
-export interface qnDataMRQ extends qnDataMCQ {
+export interface qnDataMRQ extends qnDataCore {
+    type: 'MRQ';
+    recommendMarkingScheme: number;
+    sortedOptions: option[];
     restrictSelection: number;
+    response: responseMCQ;
 }
 
 export interface qnDataTOF extends qnDataCore {
+    type: 'TOF';
     response: responseTOF;
 }
 
