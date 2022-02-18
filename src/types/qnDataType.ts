@@ -20,6 +20,7 @@ interface qnDataCore {
     publish: boolean;
     mark: number;
     requireRationale: boolean;
+    difficultyLevel?: number;
     createdDate: timeString;
     lastUpdatedDate: timeString;
     response: response;
@@ -53,3 +54,7 @@ export interface qnDataTOF extends qnDataCore {
 }
 
 export type qnData = qnDataFIB | qnDataMCQ | qnDataMRQ | qnDataTOF;
+
+export interface qnArrayWrapper<T = qnData> {
+    foo: T[];
+}

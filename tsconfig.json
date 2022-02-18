@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "module": "es2015",
-    "target": "es2015",
+    "module": "ES6",
+    "target": "es5",
     "lib": [
       "DOM",
       "ES2021"
@@ -12,6 +12,7 @@
     "allowJs": false,
     "jsx": "preserve",
     "strict": true,
+    "declaration": false,
     "useUnknownInCatchVariables": false,
     "moduleResolution": "node",
     "rootDir": "src",
@@ -25,7 +26,7 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noFallthroughCasesInSwitch": true,
   },
   "exclude": [
@@ -33,5 +34,8 @@
     ".yarn",
     "webpack.config.ts",
     "dist",
+  ],
+  "files": [
+    "src/index.ts"
   ]
 }

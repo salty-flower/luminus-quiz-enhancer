@@ -1,17 +1,30 @@
 {
-  "name": "quiz-enhancer",
-  "version": "0.0.1",
-  "description": "A comprehensive enhancer for LumiNUS Quiz",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
   "private": true,
   "author": "salty-flower",
   "license": "GPLv3",
   "packageManager": "yarn@3.1.1",
   "scripts": {
-    "build": "yarn tsc"
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
     "@types/webpack": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "@webpack-cli/generators": "^2.4.2",
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
+    "eslint": "^8.9.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "html-webpack-plugin": "^5.5.0",
     "lodash": "^4.17.21",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.5.0",
@@ -19,7 +32,8 @@
     "typescript": "^4.5.5",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "webpack-userscript": "^2.5.8"
   },
   "devDependencies": {
     "@types/node": "^17.0.18"
