@@ -1,4 +1,4 @@
-import { matchTextContent } from './matcher';
+import { matchTextContent } from './matchers';
 import { pair } from './types/otherTypes';
 import { qnDataFIB, qnDataMRQ, qnDataTOF } from './types/qnDataType';
 

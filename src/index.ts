@@ -1,9 +1,9 @@
-import { fill } from './filler';
-import { match } from './matcher';
-import { htmlString } from './types/componentType';
+import { fill } from './fillers';
+import { match } from './matchers';
 import { pair, qnBox } from './types/otherTypes';
 import { polyfillData } from './types/polyfillDataType';
 import { qnData } from './types/qnDataType';
+import { blankFiller } from './preprocessors';
 
 // @ts-ignore
 function main(inputJSON: polyfillData) {
@@ -24,37 +24,19 @@ function extract(rawQuestionBoxes: HTMLCollectionOf<Element>, networkJSON: polyf
     const questionBoxes: qnBox[] = Array.prototype.slice
         .call(rawQuestionBoxes)
         .map((item: qnBox): qnBox => {
-            return (
-                item
-                    .getElementsByClassName('question-header')[0]
-                    .getElementsByTagName('katex')[0] ??
-                item
-                    .getElementsByClassName('question-type')[0]
-                    .getElementsByTagName('question-view-fib')[0]
-                    .getElementsByTagName('katex')[0]
-            ).getElementsByTagName('span')[0];
+            return (item.querySelector('.question-header > span > katex > span') ??
+                item.querySelector(
+                    '.question-type > question-view-fib > form > div > span > katex > span'
+                ))!;
         });
-
-    // for (const questionBox of questionBoxes) {
-    //     result.push({
-    //         qnNode: questionBox as qnBox,
-    //         qnData: match(questionBox, data)
-    //     });
-    // }
 
     return questionBoxes.map(
         (item: qnBox, index: number) =>
             ({
                 qnNode: rawQuestionBoxes[index],
-                qnData: match(item, data, true, true)
+                qnData: match(item, data, true)
             } as pair)
     );
-}
-function blankFiller(str: htmlString): htmlString {
-    let i = 1;
-    return str.replaceAll(/_BLANK_/g, function (whatever: string) {
-        return String(i++);
-    });
 }
 
 // @ts-ignore

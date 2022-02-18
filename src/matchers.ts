@@ -5,28 +5,23 @@ import { qnArrayWrapper, qnData } from './types/qnDataType';
 export function match<T extends hasText = qnData>(
     questionBox: qnBox,
     questionDataEntries: T[],
-    usePartial?: boolean,
-    destructive: boolean = false
+    usePartial?: boolean
 ): T | undefined {
     const bar: qnArrayWrapper<T> = { foo: questionDataEntries };
     return (
-        matchHTML(questionBox, bar.foo, destructive) ??
+        matchHTML(questionBox, bar.foo) ??
         matchTextContent(questionBox, bar.foo) ??
-        (usePartial ? matchPartialTextContent(questionBox, bar.foo, destructive) : undefined)
+        (usePartial ? matchPartialTextContent(questionBox, bar.foo) : undefined)
     );
 }
 
 export function matchHTML<T extends hasText = qnData>(
     questionBox: qnBox,
-    questionDataEntries: T[],
-    destructive: boolean = false
+    questionDataEntries: T[]
 ): T | undefined {
     console.log(questionDataEntries.length);
     for (const questionDataEntry of questionDataEntries.filter(item => item !== undefined)) {
         if (questionDataEntry.text == questionBox.innerHTML) {
-            if (destructive) {
-                questionDataEntries = questionDataEntries.filter(i => i !== questionDataEntry);
-            }
             return questionDataEntry;
         }
     }
@@ -35,8 +30,7 @@ export function matchHTML<T extends hasText = qnData>(
 
 export function matchTextContent<T extends hasText = qnData>(
     questionBox: qnBox,
-    questionDataEntries: T[],
-    destructive: boolean = false
+    questionDataEntries: T[]
 ): T | undefined {
     console.log(questionDataEntries.length);
     for (const questionDataEntry of questionDataEntries.filter(item => item !== undefined)) {
@@ -44,9 +38,6 @@ export function matchTextContent<T extends hasText = qnData>(
         tmpElement.innerHTML = questionDataEntry.text;
 
         if (tmpElement.textContent == questionBox.textContent) {
-            if (destructive) {
-                questionDataEntries = questionDataEntries.filter(i => i !== questionDataEntry);
-            }
             return questionDataEntry;
         }
     }
@@ -55,8 +46,7 @@ export function matchTextContent<T extends hasText = qnData>(
 
 function matchPartialTextContent<T extends hasText = qnData>(
     questionBox: qnBox,
-    questionDataEntries: T[],
-    destructive: boolean = false
+    questionDataEntries: T[]
 ): T | undefined {
     console.log(questionDataEntries.length);
     for (const questionDataEntry of questionDataEntries.filter(item => item !== undefined)) {
@@ -74,9 +64,6 @@ function matchPartialTextContent<T extends hasText = qnData>(
                 tmpElement.textContent.substring(quarter, full) ==
                     questionBox.textContent.substring(quarter, full)
             ) {
-                if (destructive) {
-                    questionDataEntries = questionDataEntries.filter(i => i !== questionDataEntry);
-                }
                 return questionDataEntry;
             }
         }
